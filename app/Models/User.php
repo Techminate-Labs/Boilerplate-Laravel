@@ -52,11 +52,6 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasOne(Profile::class);
     }
 
-    public function invoice(){
-    	return $this->hasOne(Invoice::class);
-    }
-
-
     // Password reset
     public function sendPasswordResetNotification($token)
     {

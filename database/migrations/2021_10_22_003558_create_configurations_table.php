@@ -16,18 +16,8 @@ class CreateConfigurationsTable extends Migration
         Schema::create('configurations', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('app_name')->nullable();
-            $table->string('store_name')->nullable();
-            $table->string('currency')->nullable();
-            $table->string('currency_symble')->nullable();
-            $table->string('tnbc_pk')->nullable();
-            $table->float('tnbc_rate', 8, 4)->nullable();
-            $table->float('usd_rate', 8, 4)->nullable();
-            $table->float('tax_rate', 8, 4)->nullable();
             $table->string('time_zone')->nullable();
-            $table->string('protocol')->nullable();
-            $table->string('bank')->nullable();
             $table->string('app_logo')->nullable();
-            $table->string('store_logo')->nullable();
             $table->timestamps();
         });
     }

@@ -5,18 +5,16 @@ namespace App\Services\Auth;
 use Illuminate\Support\Facades\Hash;
 
 //Repository
-use App\Repositories\CartRepository;
 
 //Services
 use App\Services\BaseServices;
 
 //Models
-use App\Models\Cart;
 
 class AuthServices extends BaseServices{
     private $cartModel = Cart::class;
 
-    public function userCreate($request){
+    public function register($request){
         $fields = $request->validate([
             'role_id'=>'required',
             'name' => 'required|string',
@@ -35,7 +33,6 @@ class AuthServices extends BaseServices{
         );
 
         $token = $user->createToken('myapptoken')->plainTextToken;
-
         $response = [
             'user' => $user,
             'token' => $token
@@ -61,13 +58,6 @@ class AuthServices extends BaseServices{
         }
 
         $token = $user->createToken('myapptoken')->plainTextToken;
-
-        //create cart for a user
-        $cart = $this->filterRI->filterBy1PropFirst($this->cartModel, $user->id, 'user_id');
-        if(!$cart){
-            $cart = CartRepository::createCart($this->cartModel, $user->id);
-        }
-        
         $response = [
             'user' => $user,
             'token' => $token,
