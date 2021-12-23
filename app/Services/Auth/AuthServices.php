@@ -12,9 +12,9 @@ use App\Services\BaseServices;
 //Models
 
 class AuthServices extends BaseServices{
-    private $cartModel = Cart::class;
 
     public function register($request){
+        $this->logCreate($request);
         $fields = $request->validate([
             'role_id'=>'required',
             'name' => 'required|string',
