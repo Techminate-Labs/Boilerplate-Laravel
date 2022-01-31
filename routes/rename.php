@@ -1,9 +1,9 @@
-//cartItem
-    Route::get('/cartItemList', [CartItemController::class, 'cartItemList']);
-    Route::get('/cartItemGetById/{id}', [CartItemController::class, 'cartItemGetById']);
-    Route::post('/cartItemCreate', [CartItemController::class, 'cartItemCreate']);
-    Route::put('/cartItemUpdate/{id}', [CartItemController::class, 'cartItemUpdate']);
-    Route::delete('/cartItemDelete/{id}', [CartItemController::class, 'cartItemDelete']);
+//blog
+    Route::get('/blogList', [blogController::class, 'blogList']);
+    Route::get('/blogGetById/{id}', [blogController::class, 'blogGetById']);
+    Route::post('/blogCreate', [blogController::class, 'blogCreate']);
+    Route::put('/blogUpdate/{id}', [blogController::class, 'blogUpdate']);
+    Route::delete('/blogDelete/{id}', [blogController::class, 'blogDelete']);
 
 
 $categories = $request->categories;

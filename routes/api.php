@@ -18,6 +18,7 @@ use App\Http\Controllers\User\RoleController;
 use App\Http\Controllers\System\ConfigurationController;
 use App\Http\Controllers\System\ActivityLogController;
 
+use App\Http\Controllers\Blog\BlogController;
 
 Route::middleware('auth:sanctum','verified')->get('/user', function (Request $request) {
     return $request->user();
@@ -66,5 +67,12 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/config', [ConfigurationController::class, 'config']);
     Route::put('/configUpdate', [ConfigurationController::class, 'configUpdate']);
     Route::get('/logList', [ActivityLogController::class, 'logList']);
+
 });
 
+//blog
+Route::get('/blogList', [BlogController::class, 'blogList']);
+Route::get('/blogGetById/{id}', [BlogController::class, 'blogGetById']);
+Route::post('/blogCreate', [BlogController::class, 'blogCreate']);
+Route::put('/blogUpdate/{id}', [BlogController::class, 'blogUpdate']);
+Route::delete('/blogDelete/{id}', [BlogController::class, 'blogDelete']);

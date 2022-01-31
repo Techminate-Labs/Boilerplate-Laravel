@@ -16,28 +16,28 @@ class BlogController extends Controller
         $this->services = $blogServices;
     }
 
-    public function roleList(Request $request)
+    public function blogList(Request $request)
     {
-        return $this->services->roleList($request);
+        return $this->services->blogList($request);
     }
 
-    public function roleGetById(Request $request, $id)
+    public function blogGetById(Request $request, $id)
     {
-        return $this->services->roleGetById($request, $id);
+        return $this->services->blogGetById($request, $id);
     }
    
-    public function roleCreate(Request $request)
+    public function blogCreate(Request $request)
     {
-        return $this->services->roleCreate($request);
+        return $this->services->blogCreate($request);
     }
 
-    public function roleUpdate(Request $request, $id)
+    public function blogUpdate(Request $request, $id)
     {
-        return $this->services->roleUpdate($request, $id);
+        return $this->services->blogUpdate($request, $id);
     }
    
-    public function roleDelete(Request $request, $id)
+    public function blogDelete(Request $request, $id)
     {
-        return $this->services->roleDelete($request, $id);
+        return $this->services->blogDelete($request, $id);
     }
 }

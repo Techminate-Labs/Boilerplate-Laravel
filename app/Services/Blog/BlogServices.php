@@ -1,17 +1,24 @@
 <?php
 
-namespace App\Services\User;
+namespace App\Services\Blog;
 
 //Services
 use App\Services\BaseServices;
+use App\Services\Validation\Blog\BlogValidation;
 
 //Format
 use App\Format\BlogFormat;
+
+//Utilities
+use App\Utilities\FileUtilities;
 
 //Models
 use App\Models\Blog;
 
 class BlogServices extends BaseServices{
+    public static $imagePath = 'images/blog';
+    public static $explode_at = "blog/";
+
     private $blogModel = Blog::class;
 
     public function blogList($request){
@@ -43,29 +50,51 @@ class BlogServices extends BaseServices{
 
     public function blogCreate($request){
         $this->logCreate($request);
-        $request->validate([
-            'name'=>'required',
-            'permissions'=>'required'
-        ]);
-        $data = $request->all();
+        $fields = blogValidation::validate1($request);
+        $image = FileUtilities::fileUpload($request, url(''), self::$imagePath, false, false, false);
+        $blog = $this->baseRI->storeInDB(
+            $this->blogModel,
+            [
+                'category_id' => $fields['category_id'],
+                'title' => $fields['title'],
+                'body' => $fields['body'],
+                'active' => $fields['active'],
+                'date' => $fields['date'],
+                'time' => $fields['time'],
+                'image' => $image
+            ]);
 
-        $blog = $this->baseRI->storeInDB($this->blogModel, $data);
+        if($blog){
+            return $blog;
+        }else{
+            return [] ;
+        }
+
         return response($blog,201);
     }
 
     public function blogUpdate($request, $id){
-        $this->logCreate($request);
-        $request->validate([
-            'name'=>'required',
-            'permissions'=>'required'
-        ]);
         $blog = $this->baseRI->findById($this->blogModel, $id);
+
         if($blog){
+            $fields = BlogValidation::validate1($request);
             $data = $request->all();
-            $blog->update($data);
+            //image upload
+            $exImagePath = $blog->image;
+            $image = FileUtilities::fileUpload($request, url(''), self::$imagePath, self::$explode_at, $exImagePath, true);
+            
+            $blog->update([
+                'category_id' => $fields['category_id'],
+                'title' => $fields['title'],
+                'body' => $fields['body'],
+                'active' => $fields['active'],
+                'date' => $fields['date'],
+                'time' => $fields['time'],
+                'image' => $image
+            ]);
             return response($blog,201);
         }else{
-            return response(["message"=>'blog not found'],404);
+            return response(["failed"=>'blog not found'],404);
         }
     }
 
