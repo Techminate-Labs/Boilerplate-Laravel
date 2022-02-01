@@ -78,8 +78,6 @@ class BlogServices extends BaseServices{
 
         if($blog){
             $fields = BlogValidation::validate1($request);
-            $data = $request->all();
-            //image upload
             $exImagePath = $blog->image;
             $image = FileUtilities::fileUpload($request, url(''), self::$imagePath, self::$explode_at, $exImagePath, true);
             
@@ -102,6 +100,8 @@ class BlogServices extends BaseServices{
         $this->logCreate($request);
         $blog = $this->baseRI->findById($this->blogModel, $id);
         if($blog){
+            $exImagePath = $blog->image;
+            FileUtilities::removeExistingFile(self::$imagePath, $exImagePath, self::$explode_at);
             $blog->delete();
             return response(["message"=>'Delete Successfull'],200);
         }else{
