@@ -24,7 +24,6 @@ Route::post('/reset-password', [PasswordResetController::class, 'reset']);
 // Protected routes
 Route::group(['middleware' => ['auth:sanctum']], function () {
     //Auth
-    Route::post('/register', [AuthController::class, 'register']);
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::post('email/verification-notification', [EmailVerificationController::class, 'sendVerificationEmail']);
     Route::get('verify-email/{id}/{hash}', [EmailVerificationController::class, 'verify'])->name('verification.verify');
