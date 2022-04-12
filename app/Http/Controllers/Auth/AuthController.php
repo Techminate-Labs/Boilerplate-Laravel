@@ -17,7 +17,7 @@ class AuthController extends Controller
     }
 
     public function register(Request $request) {
-        return $this->services->userCreate($request);
+        return $this->services->register($request);
     }
 
     public function login(Request $request) {
@@ -25,6 +25,6 @@ class AuthController extends Controller
     }
 
     public function logout(Request $request) {
-        return $this->services->logout();
+        return $this->services->logout($request);
     }
 }
