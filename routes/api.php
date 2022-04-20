@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 //Controllers
@@ -19,6 +20,12 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/forgot-password', [PasswordResetController::class, 'forgotPassword']);
 Route::post('/reset-password', [PasswordResetController::class, 'reset']);
+
+
+// verification Protected routes
+Route::middleware('auth:sanctum','verified')->get('/user', function (Request $request) {
+    return $request->user();
+});
 
 // Protected routes
 Route::group(['middleware' => ['auth:sanctum']], function () {
