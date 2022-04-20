@@ -12,7 +12,6 @@ class ResetPasswordNotification extends Notification
     use Queueable;
 
     public $url;
-
     /**
      * Create a new notification instance.
      *
@@ -43,9 +42,9 @@ class ResetPasswordNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('Forgot Password?')
-                    ->action('Click to reset', $this->url)
-                    ->line('Thank you for using our application!');
+            ->line('Forgot Password?')
+            ->action('Click to reset', $this->url)
+            ->line('Thank you for using our application!');
     }
 
     /**
